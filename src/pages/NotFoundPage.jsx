@@ -30,8 +30,8 @@ const NotFoundPage = () => {
             <Typography variant="body1" color="text.secondary" mb={3}>
                 The page you're looking for doesn't exist.
             </Typography>
-            <Button variant="contained" onClick={() => navigate('/')}>
-                Go to Home
+            <Button variant="contained" onClick={() => navigate(-1)}>
+                Go Back
             </Button>
         </Box>
     );
