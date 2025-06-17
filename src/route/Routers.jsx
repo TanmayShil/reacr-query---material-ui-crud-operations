@@ -6,6 +6,7 @@ import Products from "../pages/Products";
 import Profile from "../pages/Profile";
 import AddProduct from "../pages/AddProduct";
 import NotFoundPage from "../pages/NotFoundPage";
+import PrivateRoute from "../components/PrivateRoute";
 
 export const Routers = createBrowserRouter([
     {
@@ -18,22 +19,46 @@ export const Routers = createBrowserRouter([
     },
     {
         path: "/admin",
-        element: <Wrapper />,
+        element: <PrivateRoute />,
         children: [
             {
-                path: "products",
-                element: <Products />
-            },
-            {
-                path: "product/add",
-                element: <AddProduct />
-            },
-            {
-                path: "profile",
-                element: <Profile />
-            },
+                path: "",
+                element: <Wrapper />,
+                children: [
+                    {
+                        path: "products",
+                        element: <Products />
+                    },
+                    {
+                        path: "product/add",
+                        element: <AddProduct />
+                    },
+                    {
+                        path: "profile",
+                        element: <Profile />
+                    }
+                ]
+            }
         ]
     },
+    // {
+    //     path: "/admin",
+    //     element: <Wrapper />,
+    //     children: [
+    //         {
+    //             path: "products",
+    //             element: <Products />
+    //         },
+    //         {
+    //             path: "product/add",
+    //             element: <AddProduct />
+    //         },
+    //         {
+    //             path: "profile",
+    //             element: <Profile />
+    //         },
+    //     ]
+    // },
     {
         path: "*",
         element: <NotFoundPage />
