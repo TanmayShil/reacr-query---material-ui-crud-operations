@@ -2,31 +2,31 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import axiosInstance from '../../api/axiosInstance';
 import { endpoints } from '../../api/endpoint';
 
-// export const useProductList = () => {
-//   return useQuery({
-//     queryKey: ['productList'],
-//     queryFn: async () => {
-//       const response = await axiosInstance.get(endpoints.cms.productList);
-//       return response.data;
-//     },
-//   });
-// };
 
-export const useProductList = (page = 1, perpage = 10) => {
+export const useProductList = (page = 1, perpage = 5) => {
   return useQuery({
     queryKey: ['productList', page, perpage],
     queryFn: async () => {
-      const response = await axiosInstance.get(endpoints.cms.productList, {
-        params: {
-          page,
-          perpage,
-        },
+      const response = await axiosInstance.post(endpoints.cms.productList, {
+        page,
+        perpage
       });
       return response.data;
     },
     keepPreviousData: true, // for smoother UX
   });
 }; 
+
+export const useProductById = (id) => {
+  return useQuery({
+    queryKey: ['productById', id],
+    queryFn: async () => {
+      const response = await axiosInstance.get(`${endpoints.cms.productDetails}/${id}`);
+      return response.data;
+    },
+    enabled: !!id, // only run if id is provided
+  });
+};
 
 export const useCreateProduct = () => {
     return useMutation({
@@ -43,5 +43,37 @@ export const useCreateProduct = () => {
       });
       return response.data;
     }
+  });
+};
+
+export const useUpdateProduct = () => {
+  return useMutation({
+    mutationFn: async ({ id, data }) => {
+      const formData = new FormData();
+      formData.append("id", id);
+      formData.append("title", data.title);
+      formData.append("description", data.description);
+      if (data.image instanceof File) {
+        formData.append("image", data.image);
+      }
+
+      const response = await axiosInstance.post(`${endpoints.cms.productUpdate}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      });
+      return response.data;
+    }
+  });
+};
+
+export const useDeleteProduct = () => {
+  return useMutation({
+    mutationFn: async (id) => {
+      const response = await axiosInstance.post(endpoints.cms.productRemove, {
+        id,
+      });
+      return response.data;
+    },
   });
 };

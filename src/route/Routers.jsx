@@ -34,6 +34,10 @@ export const Routers = createBrowserRouter([
                         element: <AddProduct />
                     },
                     {
+                        path: "product/add/:id",
+                        element: <AddProduct />
+                    },
+                    {
                         path: "profile",
                         element: <Profile />
                     }
