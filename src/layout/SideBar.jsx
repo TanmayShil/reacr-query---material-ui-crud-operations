@@ -5,7 +5,7 @@ import PersonIcon from '@mui/icons-material/Person';
 
 const sidebarItems = [
   { path: '/admin/products', name: 'Products', icon: <Inventory2Icon /> },
-  { path: '/admin/profile', name: 'Profile', icon: <PersonIcon /> }
+  // { path: '/admin/profile', name: 'Profile', icon: <PersonIcon /> }
 ];
 
 const SideBar = () => {

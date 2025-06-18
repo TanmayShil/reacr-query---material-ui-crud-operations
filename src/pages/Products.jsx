@@ -58,7 +58,7 @@ const Products = () => {
         <Typography variant="h3">Product List</Typography>
         <Button variant="contained" color="primary" onClick={() => navigate("/admin/product/add")}>Add Product</Button>
       </Box>
-      {products.length > 0 ? (
+      {products?.length > 0 ? (
         <>
           <TableContainer component={Paper}>
             <Table>
@@ -72,7 +72,7 @@ const Products = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {products.map((product) => (
+                {products?.map((product) => (
                   <TableRow key={product._id}>
                     <TableCell>{product._id}</TableCell>
                     <TableCell>{product.title}</TableCell>
