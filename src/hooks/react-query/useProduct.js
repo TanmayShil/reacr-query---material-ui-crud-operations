@@ -2,15 +2,31 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import axiosInstance from '../../api/axiosInstance';
 import { endpoints } from '../../api/endpoint';
 
-export const useProductList = () => {
+// export const useProductList = () => {
+//   return useQuery({
+//     queryKey: ['productList'],
+//     queryFn: async () => {
+//       const response = await axiosInstance.get(endpoints.cms.productList);
+//       return response.data;
+//     },
+//   });
+// };
+
+export const useProductList = (page = 1, perpage = 10) => {
   return useQuery({
-    queryKey: ['productList'],
+    queryKey: ['productList', page, perpage],
     queryFn: async () => {
-      const response = await axiosInstance.get(endpoints.cms.productList);
+      const response = await axiosInstance.get(endpoints.cms.productList, {
+        params: {
+          page,
+          perpage,
+        },
+      });
       return response.data;
     },
+    keepPreviousData: true, // for smoother UX
   });
-};
+}; 
 
 export const useCreateProduct = () => {
     return useMutation({

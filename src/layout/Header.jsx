@@ -1,16 +1,10 @@
 import { AppBar, Toolbar, Typography, Avatar, Box } from '@mui/material';
 import { useUserDetails } from '../hooks/react-query/useAuth';
 
+const baseImageUrl = import.meta.env.VITE_IMAGE_BASE_URL;
+
 const Header = () => {
-  const profile = {
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    // image: 'https://i.pravatar.cc/300' 
-  };
-
   const { data, isLoading, isError, error } = useUserDetails();
-
-    console.log("user data---", data)
 
   return (
     <AppBar position="static" sx={{ bgcolor: '#1976d2', boxShadow: "none" }}>
@@ -18,10 +12,10 @@ const Header = () => {
         <Typography variant="h6"></Typography>
         <Box display="flex" alignItems="center" gap={2}>
           <Box textAlign="right">
-            <Typography variant="body1" sx={{color: "#fff"}}>{profile.name}</Typography>
-            <Typography variant="body2"  sx={{color: "#fff"}}>{profile.email}</Typography>
+            <Typography variant="body1" sx={{color: "#fff"}}>{data?.data?.first_name} {data?.data?.last_name}</Typography>
+            <Typography variant="body2"  sx={{color: "#fff"}}>{data?.data?.email}</Typography>
           </Box>
-          <Avatar alt={profile.name} src={profile.image} />
+          <Avatar alt={data?.data?.first_name} src={`${baseImageUrl}/uploads/user/profile_pic/${data?.data?.profile_pic}`} />
         </Box>
       </Toolbar>
     </AppBar>
