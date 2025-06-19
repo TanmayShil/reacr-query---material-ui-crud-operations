@@ -24,7 +24,7 @@ import Input from "../components/Input";
 const productSchema = Yup.object({
   title: Yup.string().required("Title is required"),
   description: Yup.string().required("Description is required"),
-  image: Yup.mixed().required("Image is required"),
+  // image: Yup.mixed().required("Image is required"),
 });
 
 
